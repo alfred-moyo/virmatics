@@ -1,2 +1,2 @@
 # virmatics
-This repository will contain the first project for Vermatics. 
+This repository contains the Timeline web-app for Virmatics. 
