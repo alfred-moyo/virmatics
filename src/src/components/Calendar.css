@@ -1,0 +1,281 @@
+.calendar {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.calendar-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.calendar-main {
+  flex: 1;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* Mobile sidebar toggle button */
+.mobile-sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: var(--accent-blue);
+  color: white;
+  border-radius: 50%;
+  box-shadow: var(--shadow-lg);
+  z-index: 300;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+}
+
+.mobile-sidebar-toggle:hover {
+  background: var(--accent-blue-dark);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: var(--shadow-xl);
+}
+
+.mobile-sidebar-toggle:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Mobile sidebar backdrop */
+.mobile-sidebar-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+  backdrop-filter: blur(4px);
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-primary);
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-light);
+  border-top: 4px solid var(--accent-blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 1024px) {
+  .calendar-content {
+    position: relative;
+  }
+  
+  .calendar-sidebar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .calendar-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .mobile-sidebar-toggle {
+    display: flex;
+  }
+  
+  .mobile-sidebar-backdrop {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  }
+  
+  .mobile-sidebar-toggle {
+    top: 20px;
+    left: 12px;
+    transform: none;
+    width: 44px;
+    height: 44px;
+  }
+  
+  .mobile-sidebar-toggle:hover {
+    transform: scale(1.05);
+  }
+  
+  .mobile-sidebar-toggle:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Print styles */
+@media print {
+  .calendar {
+    height: auto;
+    overflow: visible;
+  }
+  
+  .calendar-content {
+    overflow: visible;
+  }
+  
+  .calendar-main {
+    overflow: visible;
+  }
+  
+  .mobile-sidebar-toggle,
+  .mobile-sidebar-backdrop,
+  .loading-overlay {
+    display: none !important;
+  }
+  
+  .calendar-sidebar {
+    display: none !important;
+  }
+  
+  .calendar-header {
+    position: static !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .calendar {
+    border: 2px solid var(--text-primary);
+  }
+  
+  .mobile-sidebar-toggle {
+    border: 2px solid white;
+  }
+  
+  .spinner {
+    border-width: 6px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-sidebar-toggle,
+  .calendar-sidebar,
+  .loading-spinner {
+    transition: none;
+  }
+  
+  .spinner {
+    animation: none;
+    border-top-color: var(--accent-blue);
+  }
+  
+  .mobile-sidebar-toggle:hover,
+  .mobile-sidebar-toggle:active {
+    transform: none;
+  }
+}
+
+/* Focus management for accessibility */
+.calendar:focus-within .mobile-sidebar-toggle {
+  z-index: 301;
+}
+
+/* Dark mode specific adjustments */
+[data-theme="dark"] .loading-overlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="dark"] .mobile-sidebar-backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Animation for view transitions */
+.calendar-main > * {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Disable animation if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .calendar-main > * {
+    animation: none;
+  }
+}
+
+/* Ensure proper stacking context */
+.calendar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.calendar-header {
+  z-index: 100;
+}
+
+.calendar-sidebar {
+  z-index: 10;
+}
+
+.calendar-main {
+  z-index: 1;
+}
