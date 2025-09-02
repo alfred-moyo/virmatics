@@ -123,14 +123,6 @@ const DailyView = ({
       </div>
 
       <div className="time-grid">
-        <div className="time-column">
-          {hours.map(hour => (
-            <div key={hour} className="time-slot">
-              <span className="time-label">{formatHour(hour)}</span>
-            </div>
-          ))}
-        </div>
-
         <div className="events-column">
           {hours.map(hour => {
             const hourEvents = getEventsForHour(hour);
@@ -191,6 +183,14 @@ const DailyView = ({
               </div>
             );
           })}
+        </div>
+
+        <div className="time-column">
+          {hours.map(hour => (
+            <div key={hour} className="time-slot">
+              <span className="time-label">{formatHour(hour)}</span>
+            </div>
+          ))}
         </div>
       </div>
 

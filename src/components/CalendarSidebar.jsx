@@ -195,29 +195,7 @@ const CalendarSidebar = ({
           ))}
         </div>
 
-        {/* Priority Filters */}
-        <div className="filter-group">
-          <h5>Priority</h5>
-          {[
-            { key: 'urgent', label: 'Urgent', color: '#EF4444' },
-            { key: 'high', label: 'High', color: '#F59E0B' },
-            { key: 'medium', label: 'Medium', color: '#10B981' },
-            { key: 'low', label: 'Low', color: '#6B7280' }
-          ].map((priority) => (
-            <label key={priority.key} className="filter-item">
-              <input
-                type="checkbox"
-                checked={filters.priorities.includes(priority.key)}
-                onChange={(e) => handleFilterChange('priorities', priority.key, e.target.checked)}
-              />
-              <span 
-                className="filter-color-indicator"
-                style={{ backgroundColor: priority.color }}
-              ></span>
-              <span className="filter-label">{priority.label}</span>
-            </label>
-          ))}
-        </div>
+
 
         {/* Clear Filters */}
         <button 

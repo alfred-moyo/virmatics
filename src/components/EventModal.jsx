@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { company, staff, taskTypes, vehicles } from '../data/sampleData';
+import { staff, taskTypes, vehicles } from '../data/sampleData';
 import './EventModal.css';
 
 const EventModal = ({ 
   isOpen, 
   onClose, 
   onSave, 
+  onDelete,
   event = null, 
   initialDate = new Date(),
   initialTime = null 
@@ -14,10 +15,9 @@ const EventModal = ({
     title: '',
     type: 'installation',
     assignedStaff: staff[0]?.id || 1,
-    company: company[0]?.id || 1,
+    company: '',
     vehicle: '',
-    location: '',
-    priority: 'medium',
+    location: 'Office',
     description: '',
     deviceId: '',
     startDate: '',
@@ -41,9 +41,9 @@ const EventModal = ({
           title: event.title,
           type: event.type,
           assignedStaff: event.assignedStaff.id,
-          vehicle: event.vehicle?.id || '',
+          company: event.company || '',
+          vehicle: event.vehicle?.info || event.vehicle?.id || '',
           location: event.location,
-          priority: event.priority,
           description: event.description || '',
           deviceId: event.deviceId || '',
           startDate: startDate.toISOString().split('T')[0],
@@ -68,9 +68,9 @@ const EventModal = ({
           title: '',
           type: 'installation',
           assignedStaff: staff[0]?.id || 1,
+          company: '',
           vehicle: '',
-          location: '',
-          priority: 'medium',
+          location: 'Office',
           description: '',
           deviceId: '',
           startDate: startDate.toISOString().split('T')[0],
@@ -119,7 +119,11 @@ const EventModal = ({
       newErrors.title = 'Title is required';
     }
     
-    if (!formData.location.trim()) {
+    if (!formData.company.trim()) {
+      newErrors.company = 'Company is required';
+    }
+    
+    if (!formData.location) {
       newErrors.location = 'Location is required';
     }
     
@@ -166,7 +170,6 @@ const EventModal = ({
       const startDateTime = new Date(`${formData.startDate}T${formData.startTime}`);
       const endDateTime = new Date(`${formData.endDate}T${formData.endTime}`);
       const selectedStaff = staff.find(s => s.id === parseInt(formData.assignedStaff));
-      const selectedVehicle = vehicles.find(v => v.id === formData.vehicle);
       
       const eventData = {
         id: event?.id || Date.now(), // Use existing ID or generate new one
@@ -175,9 +178,9 @@ const EventModal = ({
         startTime: startDateTime,
         endTime: endDateTime,
         assignedStaff: selectedStaff,
-        vehicle: selectedVehicle || null,
-        location: formData.location.trim(),
-        priority: formData.priority,
+        company: formData.company.trim(),
+        vehicle: formData.vehicle.trim() || null,
+        location: formData.location,
         description: formData.description.trim(),
         deviceId: formData.deviceId.trim() || null
       };
@@ -195,6 +198,24 @@ const EventModal = ({
   const handleClose = () => {
     if (!isSubmitting) {
       onClose();
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!event || !onDelete) return;
+    
+    const confirmDelete = window.confirm(`Are you sure you want to delete "${event.title}"? This action cannot be undone.`);
+    if (!confirmDelete) return;
+    
+    setIsSubmitting(true);
+    try {
+      await onDelete(event);
+      onClose();
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      setErrors({ submit: 'Failed to delete event. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -255,20 +276,19 @@ const EventModal = ({
               </select>
             </div>
 
-            {/* Priority */}
+            {/* Company */}
             <div className="form-group">
-              <label htmlFor="priority">Priority *</label>
-              <select
-                id="priority"
-                value={formData.priority}
-                onChange={(e) => handleInputChange('priority', e.target.value)}
+              <label htmlFor="company">Company *</label>
+              <input
+                id="company"
+                type="text"
+                value={formData.company}
+                onChange={(e) => handleInputChange('company', e.target.value)}
+                placeholder="e.g., ABC Logistics, Transport Ltd"
+                className={errors.company ? 'error' : ''}
                 disabled={isSubmitting}
-              >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
-              </select>
+              />
+              {errors.company && <span className="error-message">{errors.company}</span>}
             </div>
 
             {/* Assigned Staff */}
@@ -291,33 +311,30 @@ const EventModal = ({
             {/* Vehicle */}
             <div className="form-group">
               <label htmlFor="vehicle">Vehicle</label>
-              <select
+              <input
                 id="vehicle"
+                type="text"
                 value={formData.vehicle}
                 onChange={(e) => handleInputChange('vehicle', e.target.value)}
+                placeholder="e.g., VH-001 Mercedes Sprinter, Fleet Car ABC123"
                 disabled={isSubmitting}
-              >
-                <option value="">No vehicle assigned</option>
-                {vehicles.map(vehicle => (
-                  <option key={vehicle.id} value={vehicle.id}>
-                    {vehicle.id} - {vehicle.make} {vehicle.model} ({vehicle.year})
-                  </option>
-                ))}
-              </select>
+              />
             </div>
 
             {/* Location */}
-            <div className="form-group full-width">
+            <div className="form-group">
               <label htmlFor="location">Location *</label>
-              <input
+              <select
                 id="location"
-                type="text"
                 value={formData.location}
                 onChange={(e) => handleInputChange('location', e.target.value)}
-                placeholder="e.g., Birmingham Depot, Client Site - London"
                 className={errors.location ? 'error' : ''}
                 disabled={isSubmitting}
-              />
+              >
+                <option value="Office">Office</option>
+                <option value="Client's Location">Client's Location</option>
+                <option value="Other">Other</option>
+              </select>
               {errors.location && <span className="error-message">{errors.location}</span>}
             </div>
 
@@ -407,21 +424,45 @@ const EventModal = ({
           )}
 
           <div className="modal-actions">
-            <button 
-              type="button" 
-              className="btn-secondary"
-              onClick={handleClose}
-              disabled={isSubmitting}
-            >
-              Cancel
-            </button>
-            <button 
-              type="submit" 
-              className="btn-primary"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Saving...' : (event ? 'Update Event' : 'Create Event')}
-            </button>
+            {event ? (
+              // Edit mode - show delete and update buttons
+              <>
+                <button 
+                  type="button" 
+                  className="btn-danger"
+                  onClick={handleDelete}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Deleting...' : 'Delete'}
+                </button>
+                <button 
+                  type="submit" 
+                  className="btn-primary"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Updating...' : 'Update Event'}
+                </button>
+              </>
+            ) : (
+              // Create mode - show cancel and create buttons
+              <>
+                <button 
+                  type="button" 
+                  className="btn-secondary"
+                  onClick={handleClose}
+                  disabled={isSubmitting}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="btn-primary"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Creating...' : 'Create Event'}
+                </button>
+              </>
+            )}
           </div>
         </form>
       </div>

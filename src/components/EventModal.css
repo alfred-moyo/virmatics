@@ -171,7 +171,8 @@
 }
 
 .btn-primary,
-.btn-secondary {
+.btn-secondary,
+.btn-danger {
   padding: 12px 24px;
   border-radius: var(--radius-md);
   font-size: 14px;
@@ -213,8 +214,23 @@
   border-color: var(--border-dark);
 }
 
+.btn-danger {
+  background: var(--error);
+  color: white;
+  border: 2px solid var(--error);
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+  border-color: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
 .btn-primary:disabled,
-.btn-secondary:disabled {
+.btn-secondary:disabled,
+.btn-danger:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;

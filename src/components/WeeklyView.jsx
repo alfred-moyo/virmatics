@@ -180,16 +180,6 @@ const WeeklyView = ({
       </div>
 
       <div className="week-grid">
-        {/* Time column */}
-        <div className="time-column">
-          <div className="time-header"></div>
-          {hours.map(hour => (
-            <div key={hour} className="time-slot">
-              <span className="time-label">{formatHour(hour)}</span>
-            </div>
-          ))}
-        </div>
-
         {/* Day columns */}
         {weekDates.map((date, dayIndex) => (
           <div key={dayIndex} className={`day-column ${isToday(date) ? 'today' : ''}`}>
@@ -269,6 +259,16 @@ const WeeklyView = ({
             })}
           </div>
         ))}
+
+        {/* Time column */}
+        <div className="time-column">
+          <div className="time-header"></div>
+          {hours.map(hour => (
+            <div key={hour} className="time-slot">
+              <span className="time-label">{formatHour(hour)}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Drag preview */}

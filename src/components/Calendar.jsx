@@ -24,8 +24,7 @@ const Calendar = () => {
   
   const [filters, setFilters] = useState({
     taskTypes: Object.keys(taskTypes),
-    staff: staff.map(s => s.id),
-    priorities: ['urgent', 'high', 'medium', 'low']
+    staff: staff.map(s => s.id)
   });
 
   // Initialize dark mode from localStorage or default to light mode
@@ -73,9 +72,6 @@ const Calendar = () => {
 
     // Apply staff filters
     filtered = filtered.filter(event => filters.staff.includes(event.assignedStaff.id));
-
-    // Apply priority filters
-    filtered = filtered.filter(event => filters.priorities.includes(event.priority));
 
     setFilteredEvents(filtered);
   }, [events, searchTerm, filters]);
@@ -131,8 +127,7 @@ const Calendar = () => {
     if (filterType === 'clear') {
       setFilters({
         taskTypes: Object.keys(taskTypes),
-        staff: staff.map(s => s.id),
-        priorities: ['urgent', 'high', 'medium', 'low']
+        staff: staff.map(s => s.id)
       });
       return;
     }
@@ -185,6 +180,12 @@ const Calendar = () => {
       setEvents(prev => [...prev, eventData]);
     }
   }, [events, selectedEvent]);
+
+  // Handle event delete
+  const handleEventDelete = useCallback((eventToDelete) => {
+    const updatedEvents = events.filter(event => event.id !== eventToDelete.id);
+    setEvents(updatedEvents);
+  }, [events]);
 
   // Handle event drag and drop
   const handleEventDrop = useCallback((eventData, newStartTime) => {
@@ -313,6 +314,7 @@ const Calendar = () => {
         isOpen={isEventModalOpen}
         onClose={handleEventModalClose}
         onSave={handleEventSave}
+        onDelete={handleEventDelete}
         event={selectedEvent}
         initialDate={eventModalInitialDate}
       />
