@@ -28,15 +28,15 @@ const Calendar = () => {
     priorities: ['urgent', 'high', 'medium', 'low']
   });
 
-  // Initialize dark mode from system preference or localStorage
+  // Initialize dark mode from localStorage or default to light mode
   useEffect(() => {
     const savedTheme = localStorage.getItem('virmatics-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
     } else {
-      setIsDarkMode(prefersDark);
+      // Default to light mode instead of system preference
+      setIsDarkMode(false);
     }
   }, []);
 

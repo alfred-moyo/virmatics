@@ -63,26 +63,12 @@ const EventCard = ({
           <path d="M7 0C3.13 0 0 3.13 0 7C0 10.87 3.13 14 7 14C10.87 14 14 10.87 14 7C14 3.13 10.87 0 7 0ZM7.7 10.3L7 11L6.3 10.3L3.7 7.7L4.3 7.1L7 9.8L9.7 7.1L10.3 7.7L7.7 10.3Z"/>
         </svg>
       ),
-      maintenance: (
+      removal: (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
           <path d="M7 0L8.5 3L12 3.5L9.5 6L10 9.5L7 8L4 9.5L4.5 6L2 3.5L5.5 3L7 0Z"/>
         </svg>
       ),
-      inspection: (
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-          <path d="M7 1C4.24 1 2 3.24 2 6C2 8.76 4.24 11 7 11C9.76 11 12 8.76 12 6C12 3.24 9.76 1 7 1ZM6 9L3 6L4.41 4.59L6 6.17L9.59 2.58L11 4L6 9Z"/>
-        </svg>
-      ),
-      training: (
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-          <path d="M7 0L0 4L7 8L14 4L7 0ZM2 6L7 9L12 6V10H14V6L7 9L2 6Z"/>
-        </svg>
-      ),
-      delivery: (
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-          <path d="M0 2V12H2V11H12V12H14V6H10V2H0ZM8 4V6H2V4H8ZM3 8.5C3 7.67 3.67 7 4.5 7C5.33 7 6 7.67 6 8.5C6 9.33 5.33 10 4.5 10C3.67 10 3 9.33 3 8.5ZM8 8.5C8 7.67 8.67 7 9.5 7C10.33 7 11 7.67 11 8.5C11 9.33 10.33 10 9.5 10C8.67 10 8 9.33 8 8.5Z"/>
-        </svg>
-      )
+      
     };
     return iconMap[event.type] || null;
   };

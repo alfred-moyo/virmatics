@@ -2,18 +2,25 @@
 export const taskTypes = {
   installation: { color: '#3B82F6', label: 'Installation' },
   intervention: { color: '#EF4444', label: 'Intervention' },
-  maintenance: { color: '#10B981', label: 'Maintenance' },
-  inspection: { color: '#F59E0B', label: 'Inspection' },
-  training: { color: '#8B5CF6', label: 'Training' },
-  delivery: { color: '#06B6D4', label: 'Delivery' }
+  removal: { color: '#10B981', label: 'Removal' },
 };
 
 export const staff = [
-  { id: 1, name: 'John Mitchell', role: 'Senior Technician', color: '#3B82F6' },
-  { id: 2, name: 'Sarah Johnson', role: 'Installation Specialist', color: '#10B981' },
-  { id: 3, name: 'Mike Chen', role: 'Field Engineer', color: '#F59E0B' },
-  { id: 4, name: 'Emma Rodriguez', role: 'Support Technician', color: '#EF4444' },
-  { id: 5, name: 'David Thompson', role: 'Lead Installer', color: '#8B5CF6' }
+  { id: 1, name: 'Lovikesh', role: 'Supervisor', color: '#3B82F6' },
+  { id: 2, name: 'Mansoor', role: 'Senior Technician', color: '#10B981' },
+  { id: 3, name: 'Shaahid', role: 'Technician', color: '#F59E0B' },
+  { id: 4, name: 'Saafaraz', role: 'Technician', color: '#EF4444' },
+  { id: 5, name: 'Samuel', role: 'Support Technician', color: '#8B5CF6' }
+];
+
+export const company = [
+  { id: 1, name: 'Aahana & Teeyana Co Ltd', color: '#3B82F6' },
+  { id: 2, name: 'Agiliss Ltd', color: '#10B981' },
+  { id: 3, name: 'Blinds.mu Ltd', color: '#F59E0B' },
+  { id: 4, name: 'Bocus Transport', color: '#EF4444' },
+  { id: 5, name: 'Eastern Mix', color: '#8B5CF6' }, 
+  { id: 6, name: 'Mautourco', color: '#FF0000' },
+  { id: 7, name: 'Panagora', color: '#00FF00' }
 ];
 
 export const vehicles = [

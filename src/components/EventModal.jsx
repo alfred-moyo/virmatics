@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { staff, taskTypes, vehicles } from '../data/sampleData';
+import { company, staff, taskTypes, vehicles } from '../data/sampleData';
 import './EventModal.css';
 
 const EventModal = ({ 
@@ -14,6 +14,7 @@ const EventModal = ({
     title: '',
     type: 'installation',
     assignedStaff: staff[0]?.id || 1,
+    company: company[0]?.id || 1,
     vehicle: '',
     location: '',
     priority: 'medium',
