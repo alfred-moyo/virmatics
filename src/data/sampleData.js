@@ -23,13 +23,6 @@ export const company = [
   { id: 7, name: 'Panagora', color: '#00FF00' }
 ];
 
-export const vehicles = [
-  { id: 'VH-001', make: 'Mercedes', model: 'Sprinter', year: 2023, type: 'Van' },
-  { id: 'VH-002', make: 'Ford', model: 'Transit', year: 2022, type: 'Van' },
-  { id: 'VH-003', make: 'Volvo', model: 'FH16', year: 2023, type: 'Truck' },
-  { id: 'VH-004', make: 'Scania', model: 'R450', year: 2022, type: 'Truck' },
-  { id: 'FL-001', make: 'Toyota', model: 'Hilux', year: 2023, type: 'Fleet Car' }
-];
 
 export const sampleEvents = [
   {
