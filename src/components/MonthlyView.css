@@ -181,7 +181,7 @@
   opacity: 0.8;
 }
 
-.event-dot.installation {
+.event-dot.newInstallation {
   background: #3B82F6;
 }
 
@@ -189,20 +189,12 @@
   background: #EF4444;
 }
 
-.event-dot.maintenance {
-  background: #10B981;
-}
-
-.event-dot.inspection {
+.event-dot.removal {
   background: #F59E0B;
 }
 
-.event-dot.training {
+.event-dot.swapping {
   background: #8B5CF6;
-}
-
-.event-dot.delivery {
-  background: #06B6D4;
 }
 
 /* Monthly Statistics */
@@ -240,9 +232,24 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.stat-card.urgent {
+.stat-card.new-installation {
+  border-color: #3B82F6;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(59, 130, 246, 0.05) 100%);
+}
+
+.stat-card.intervention {
   border-color: #EF4444;
   background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(239, 68, 68, 0.05) 100%);
+}
+
+.stat-card.removal {
+  border-color: #F59E0B;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(245, 158, 11, 0.05) 100%);
+}
+
+.stat-card.swapping {
+  border-color: #8B5CF6;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(139, 92, 246, 0.05) 100%);
 }
 
 .stat-number {
@@ -252,8 +259,20 @@
   margin-bottom: 4px;
 }
 
-.stat-card.urgent .stat-number {
+.stat-card.new-installation .stat-number {
+  color: #3B82F6;
+}
+
+.stat-card.intervention .stat-number {
   color: #EF4444;
+}
+
+.stat-card.removal .stat-number {
+  color: #F59E0B;
+}
+
+.stat-card.swapping .stat-number {
+  color: #8B5CF6;
 }
 
 .stat-label {

@@ -1,5 +1,6 @@
 import React from 'react';
 import EventCard from './EventCard';
+import { taskTypes } from '../data/sampleData';
 import './MonthlyView.css';
 
 const MonthlyView = ({ 
@@ -196,50 +197,48 @@ const MonthlyView = ({
       <div className="monthly-stats">
         <h3>Month Overview</h3>
         <div className="stats-grid">
-          <div className="stat-card">
+          <div className="stat-card new-installation">
             <div className="stat-number">
               {filteredEvents.filter(event => 
                 event.startTime.getMonth() === currentDate.getMonth() &&
                 event.startTime.getFullYear() === currentDate.getFullYear() &&
-                event.type === 'installation'
+                event.type === 'newInstallation'
               ).length}
             </div>
-            <div className="stat-label">Installations</div>
+            <div className="stat-label">New Installations</div>
           </div>
           
-          <div className="stat-card">
+          <div className="stat-card intervention">
             <div className="stat-number">
               {filteredEvents.filter(event => 
                 event.startTime.getMonth() === currentDate.getMonth() &&
                 event.startTime.getFullYear() === currentDate.getFullYear() &&
-                event.type === 'maintenance'
+                event.type === 'intervention'
               ).length}
             </div>
-            <div className="stat-label">Maintenance</div>
+            <div className="stat-label">Interventions</div>
           </div>
           
-          <div className="stat-card urgent">
+          <div className="stat-card removal">
             <div className="stat-number">
               {filteredEvents.filter(event => 
                 event.startTime.getMonth() === currentDate.getMonth() &&
                 event.startTime.getFullYear() === currentDate.getFullYear() &&
-                event.priority === 'urgent'
+                event.type === 'removal'
               ).length}
             </div>
-            <div className="stat-label">Urgent Tasks</div>
+            <div className="stat-label">Removals</div>
           </div>
           
-          <div className="stat-card">
+          <div className="stat-card swapping">
             <div className="stat-number">
-              {new Set(filteredEvents
-                .filter(event => 
-                  event.startTime.getMonth() === currentDate.getMonth() &&
-                  event.startTime.getFullYear() === currentDate.getFullYear()
-                )
-                .map(event => event.assignedStaff.id)
-              ).size}
+              {filteredEvents.filter(event => 
+                event.startTime.getMonth() === currentDate.getMonth() &&
+                event.startTime.getFullYear() === currentDate.getFullYear() &&
+                event.type === 'swapping'
+              ).length}
             </div>
-            <div className="stat-label">Active Staff</div>
+            <div className="stat-label">Swappings</div>
           </div>
         </div>
       </div>
@@ -248,30 +247,15 @@ const MonthlyView = ({
       <div className="month-legend">
         <h4>Task Types</h4>
         <div className="legend-items">
-          <div className="legend-item">
-            <div className="legend-dot installation"></div>
-            <span>Installation</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot intervention"></div>
-            <span>Intervention</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot maintenance"></div>
-            <span>Maintenance</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot inspection"></div>
-            <span>Inspection</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot training"></div>
-            <span>Training</span>
-          </div>
-          <div className="legend-item">
-            <div className="legend-dot delivery"></div>
-            <span>Delivery</span>
-          </div>
+          {Object.entries(taskTypes).map(([key, type]) => (
+            <div key={key} className="legend-item">
+              <div 
+                className="legend-dot"
+                style={{ backgroundColor: type.color }}
+              ></div>
+              <span>{type.label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
