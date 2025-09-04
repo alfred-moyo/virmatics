@@ -40,6 +40,7 @@
   display: flex;
   gap: 0;
   position: relative;
+  align-items: stretch; /* Ensure columns stretch to same height */
 }
 
 .time-column {
@@ -47,6 +48,8 @@
   flex-shrink: 0;
   background: var(--bg-secondary);
   border-left: 2px solid var(--border-medium);
+  display: flex;
+  flex-direction: column;
 }
 
 .time-slot {
@@ -70,6 +73,8 @@
   flex: 1;
   border-right: 1px solid var(--border-medium);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .hour-slot {

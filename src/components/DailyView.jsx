@@ -1,6 +1,7 @@
 import React from 'react';
 import EventCard from './EventCard';
 import { getEventsByDate } from '../data/sampleData';
+import { getMauritiusTime, isTodayInMauritius } from '../utils/timezone';
 import './DailyView.css';
 
 const DailyView = ({ 
@@ -10,7 +11,7 @@ const DailyView = ({
   onEventDrop,
   onTimeSlotClick 
 }) => {
-  const hours = Array.from({ length: 24 }, (_, i) => i);
+  const hours = Array.from({ length: 10 }, (_, i) => i + 8); // 8am to 5pm (8-17)
   const dayEvents = filteredEvents.filter(event => 
     event.startTime.toDateString() === currentDate.toDateString()
   );
@@ -75,19 +76,26 @@ const DailyView = ({
   };
 
   const isCurrentHour = (hour) => {
-    const now = new Date();
-    return now.toDateString() === currentDate.toDateString() && 
-           now.getHours() === hour;
+    const now = getMauritiusTime();
+    return isTodayInMauritius(currentDate) && 
+           now.getHours() === hour &&
+           hour >= 8 && hour < 17; // Only within work hours
   };
 
   const getCurrentTimePosition = () => {
-    const now = new Date();
-    if (now.toDateString() !== currentDate.toDateString()) {
+    const now = getMauritiusTime();
+    if (!isTodayInMauritius(currentDate)) {
       return null;
     }
     
     const hour = now.getHours();
     const minute = now.getMinutes();
+    
+    // Only show current time indicator if within work hours (8am-5pm)
+    if (hour < 8 || hour >= 17) {
+      return null;
+    }
+    
     return {
       hour,
       position: minute

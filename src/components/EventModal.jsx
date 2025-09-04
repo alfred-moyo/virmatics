@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { staff, taskTypes, vehicles } from '../data/sampleData';
+import { getMauritiusTime } from '../utils/timezone';
 import './EventModal.css';
 
 const EventModal = ({ 
@@ -8,7 +9,7 @@ const EventModal = ({
   onSave, 
   onDelete,
   event = null, 
-  initialDate = new Date(),
+  initialDate = null,
   initialTime = null 
 }) => {
   const [formData, setFormData] = useState({
@@ -284,7 +285,7 @@ const EventModal = ({
                 type="text"
                 value={formData.company}
                 onChange={(e) => handleInputChange('company', e.target.value)}
-                placeholder="e.g., ABC Logistics, Transport Ltd"
+                placeholder="e.g., Panagora"
                 className={errors.company ? 'error' : ''}
                 disabled={isSubmitting}
               />

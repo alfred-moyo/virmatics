@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { staff, taskTypes } from '../data/sampleData';
+import { isTodayInMauritius } from '../utils/timezone';
 import './CalendarSidebar.css';
 
 const CalendarSidebar = ({ 
@@ -59,11 +60,7 @@ const CalendarSidebar = ({
   };
 
   const isToday = (date) => {
-    const today = new Date();
-    return date && 
-           date.getDate() === today.getDate() &&
-           date.getMonth() === today.getMonth() &&
-           date.getFullYear() === today.getFullYear();
+    return date && isTodayInMauritius(date);
   };
 
   const isSelected = (date) => {

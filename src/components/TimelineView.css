@@ -116,7 +116,7 @@
 }
 
 .date-section {
-  min-width: 600px; /* 24 hours * 25px per hour */
+  min-width: 250px; /* 10 hours * 25px per hour */
   flex-shrink: 0;
   border-right: 1px solid var(--border-light);
 }
@@ -231,7 +231,7 @@
 }
 
 .date-slots {
-  min-width: 600px;
+  min-width: 250px;
   display: flex;
   border-right: 1px solid var(--border-light);
 }
@@ -467,11 +467,11 @@
   }
   
   .date-section {
-    min-width: 480px; /* Reduced for mobile */
+    min-width: 200px; /* Reduced for mobile */
   }
   
   .date-slots {
-    min-width: 480px;
+    min-width: 200px;
   }
   
   .time-slot {
@@ -524,11 +524,11 @@
   }
   
   .date-section {
-    min-width: 360px;
+    min-width: 150px;
   }
   
   .date-slots {
-    min-width: 360px;
+    min-width: 150px;
   }
   
   .time-slot {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import EventCard from './EventCard';
+import { getMauritiusTime, isTodayInMauritius } from '../utils/timezone';
 import './WeeklyView.css';
 
 const WeeklyView = ({ 
@@ -30,7 +31,7 @@ const WeeklyView = ({
 
   const weekDates = getWeekDates(currentDate);
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const hours = Array.from({ length: 24 }, (_, i) => i);
+  const hours = Array.from({ length: 10 }, (_, i) => i + 8); // 8am to 5pm (8-17)
 
   const formatHour = (hour) => {
     if (hour === 0) return '12 AM';
@@ -80,25 +81,31 @@ const WeeklyView = ({
   };
 
   const isToday = (date) => {
-    const today = new Date();
-    return date.toDateString() === today.toDateString();
+    return isTodayInMauritius(date);
   };
 
   const isCurrentHour = (hour) => {
-    const now = new Date();
-    return now.getHours() === hour;
+    const now = getMauritiusTime();
+    return now.getHours() === hour &&
+           hour >= 8 && hour < 17; // Only within work hours
   };
 
   const getCurrentTimePosition = () => {
-    const now = new Date();
+    const now = getMauritiusTime();
     const currentDayIndex = weekDates.findIndex(date => 
-      date.toDateString() === now.toDateString()
+      isTodayInMauritius(date)
     );
     
     if (currentDayIndex === -1) return null;
     
     const hour = now.getHours();
     const minute = now.getMinutes();
+    
+    // Only show current time indicator if within work hours (8am-5pm)
+    if (hour < 8 || hour >= 17) {
+      return null;
+    }
+    
     return {
       dayIndex: currentDayIndex,
       hour,

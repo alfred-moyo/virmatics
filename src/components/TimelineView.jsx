@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import EventCard from './EventCard';
 import { staff, taskTypes } from '../data/sampleData';
+import { getMauritiusTime, isTodayInMauritius } from '../utils/timezone';
 import './TimelineView.css';
 
 const TimelineView = ({ 
@@ -28,7 +29,7 @@ const TimelineView = ({
   };
 
   const timelineDates = getTimelineDates();
-  const hours = Array.from({ length: 24 }, (_, i) => i);
+  const hours = Array.from({ length: 10 }, (_, i) => i + 8); // 8am to 5pm (8-17)
 
   const formatHour = (hour) => {
     if (hour === 0) return '12 AM';
@@ -79,20 +80,25 @@ const TimelineView = ({
   };
 
   const isToday = (date) => {
-    const today = new Date();
-    return date.toDateString() === today.toDateString();
+    return isTodayInMauritius(date);
   };
 
   const getCurrentTimePosition = () => {
-    const now = new Date();
+    const now = getMauritiusTime();
     const todayIndex = timelineDates.findIndex(date => 
-      date.toDateString() === now.toDateString()
+      isTodayInMauritius(date)
     );
     
     if (todayIndex === -1) return null;
     
     const hour = now.getHours();
     const minute = now.getMinutes();
+    
+    // Only show current time indicator if within work hours (8am-5pm)
+    if (hour < 8 || hour >= 17) {
+      return null;
+    }
+    
     return {
       dateIndex: todayIndex,
       hour,

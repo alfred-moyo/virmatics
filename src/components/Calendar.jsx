@@ -7,10 +7,11 @@ import MonthlyView from './MonthlyView';
 import TimelineView from './TimelineView';
 import EventModal from './EventModal';
 import { sampleEvents, staff, taskTypes } from '../data/sampleData';
+import { getMauritiusTime } from '../utils/timezone';
 import './Calendar.css';
 
 const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(getMauritiusTime());
   const [view, setView] = useState('week');
   const [events, setEvents] = useState(sampleEvents);
   const [filteredEvents, setFilteredEvents] = useState(sampleEvents);
@@ -20,7 +21,7 @@ const Calendar = () => {
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [eventModalInitialDate, setEventModalInitialDate] = useState(new Date());
+  const [eventModalInitialDate, setEventModalInitialDate] = useState(getMauritiusTime());
   
   const [filters, setFilters] = useState({
     taskTypes: Object.keys(taskTypes),
@@ -108,7 +109,7 @@ const Calendar = () => {
 
   // Handle today button
   const handleToday = useCallback(() => {
-    setCurrentDate(new Date());
+    setCurrentDate(getMauritiusTime());
   }, []);
 
   // Handle date selection from sidebar
