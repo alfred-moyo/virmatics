@@ -14,7 +14,7 @@ const EventModal = ({
 }) => {
   const [formData, setFormData] = useState({
     title: '',
-    type: 'installation',
+    type: 'newInstallation',
     assignedStaff: staff[0]?.id || 1,
     company: '',
     vehicle: '',

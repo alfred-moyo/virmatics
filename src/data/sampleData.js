@@ -1,11 +1,9 @@
 // Sample telematics data for Virmatics Ltd
 export const taskTypes = {
-  installation: { color: '#3B82F6', label: 'Installation' },
+  newInstallation: { color: '#3B82F6', label: 'New Installation' },
   intervention: { color: '#EF4444', label: 'Intervention' },
-  maintenance: { color: '#10B981', label: 'Maintenance' },
-  inspection: { color: '#F59E0B', label: 'Inspection' },
-  training: { color: '#8B5CF6', label: 'Training' },
-  delivery: { color: '#06B6D4', label: 'Delivery' }
+  removal: { color: '#F59E0B', label: 'Removal' },
+  swapping: { color: '#8B5CF6', label: 'Swapping' }
 };
 
 export const staff = [
@@ -28,7 +26,7 @@ export const sampleEvents = [
   {
     id: 1,
     title: 'GPS Tracker Installation',
-    type: 'installation',
+    type: 'newInstallation',
     startTime: new Date(2024, 11, 20, 9, 0),
     endTime: new Date(2024, 11, 20, 11, 0),
     assignedStaff: staff[0],
@@ -40,16 +38,16 @@ export const sampleEvents = [
   },
   {
     id: 2,
-    title: 'Fleet Diagnostics Check',
-    type: 'maintenance',
+    title: 'Device Swapping - Old to New Model',
+    type: 'swapping',
     startTime: new Date(2024, 11, 20, 14, 0),
     endTime: new Date(2024, 11, 20, 16, 30),
     assignedStaff: staff[2],
     company: 'Bocus Transport',
     vehicle: 'VH-004 Volvo FH16',
     location: 'Client\'s Location',
-    description: 'Routine diagnostic check and software update',
-    deviceId: 'DIAG-2024-047'
+    description: 'Replace old tracking device with new model',
+    deviceId: 'SWAP-2024-047'
   },
   {
     id: 3,
@@ -66,61 +64,61 @@ export const sampleEvents = [
   },
   {
     id: 4,
-    title: 'Driver Training Session',
-    type: 'training',
+    title: 'Telematics Device Removal',
+    type: 'removal',
     startTime: new Date(2024, 11, 22, 10, 0),
     endTime: new Date(2024, 11, 22, 12, 0),
     assignedStaff: staff[1],
     company: 'Blinds.mu Ltd',
-    vehicle: '',
-    location: 'Office',
-    description: 'Telematics system usage training for new drivers',
-    deviceId: null
+    vehicle: 'VH-002 Ford Transit',
+    location: 'Client\'s Location',
+    description: 'Remove telematics device from vehicle end of contract',
+    deviceId: 'REM-2024-089'
   },
   {
     id: 5,
-    title: 'Monthly Vehicle Inspection',
-    type: 'inspection',
+    title: 'Emergency Device Intervention',
+    type: 'intervention',
     startTime: new Date(2024, 11, 23, 13, 0),
     endTime: new Date(2024, 11, 23, 15, 0),
     assignedStaff: staff[4],
     company: 'Eastern Mix',
     vehicle: 'VH-003 Renault Traffic',
-    location: 'Office',
-    description: 'Comprehensive vehicle and telematics system inspection',
-    deviceId: 'INSP-2024-089'
+    location: 'Client\'s Location',
+    description: 'Fix malfunctioning telematics device and restore connectivity',
+    deviceId: 'INT-2024-089'
   },
   {
     id: 6,
-    title: 'New Device Delivery',
-    type: 'delivery',
+    title: 'Fleet Management System Installation',
+    type: 'newInstallation',
     startTime: new Date(2024, 11, 24, 9, 0),
     endTime: new Date(2024, 11, 24, 10, 30),
     assignedStaff: staff[0],
     company: 'Panagora',
     vehicle: 'FL-001 Toyota Hilux',
     location: 'Client\'s Location',
-    description: 'Deliver and setup new telematics hardware',
-    deviceId: 'DEL-2024-156'
+    description: 'Install new fleet management telematics system',
+    deviceId: 'FMS-2024-156'
   },
   // Week view events
   {
     id: 7,
-    title: 'System Software Update',
-    type: 'maintenance',
+    title: 'Device Swapping - Upgrade',
+    type: 'swapping',
     startTime: new Date(2024, 11, 19, 16, 0),
-    endTime: new Date(2024, 11, 19, 18, 0),
+    endTime: new Date(2024, 11, 19, 17, 0),
     assignedStaff: staff[2],
     company: 'Agiliss Ltd',
     vehicle: 'VH-001 Mercedes Sprinter',
     location: 'Office',
-    description: 'Update telematics software to latest version',
-    deviceId: 'UPD-2024-078'
+    description: 'Swap existing device with upgraded model',
+    deviceId: 'SWP-2024-078'
   },
   {
     id: 8,
     title: 'Camera System Installation',
-    type: 'installation',
+    type: 'newInstallation',
     startTime: new Date(2024, 11, 25, 11, 0),
     endTime: new Date(2024, 11, 25, 14, 0),
     assignedStaff: staff[1],
@@ -129,6 +127,32 @@ export const sampleEvents = [
     location: 'Client\'s Location',
     description: 'Install dashcam and rear-view camera system',
     deviceId: 'CAM-2024-034'
+  },
+  {
+    id: 9,
+    title: 'Contract End Device Removal',
+    type: 'removal',
+    startTime: new Date(2024, 11, 26, 9, 0),
+    endTime: new Date(2024, 11, 26, 10, 30),
+    assignedStaff: staff[3],
+    company: 'Transport Solutions Ltd',
+    vehicle: 'VH-003 Renault Traffic',
+    location: 'Client\'s Location',
+    description: 'Remove all tracking devices due to contract termination',
+    deviceId: 'REM-2024-156'
+  },
+  {
+    id: 10,
+    title: 'Hardware Upgrade Swap',
+    type: 'swapping',
+    startTime: new Date(2024, 11, 27, 14, 0),
+    endTime: new Date(2024, 11, 27, 16, 0),
+    assignedStaff: staff[4],
+    company: 'Maritime Logistics',
+    vehicle: 'VH-004 Volvo FH16',
+    location: 'Office',
+    description: 'Replace Gen 2 device with Gen 3 advanced tracking unit',
+    deviceId: 'SWP-2024-203'
   }
 ];
 
