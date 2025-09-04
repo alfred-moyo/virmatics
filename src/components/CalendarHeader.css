@@ -19,7 +19,24 @@
   flex: 1;
 }
 
-.company-brand h1 {
+.company-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.company-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-text h1 {
   font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
@@ -30,7 +47,7 @@
   background-clip: text;
 }
 
-.company-brand span {
+.brand-text span {
   font-size: 12px;
   color: var(--text-secondary);
   font-weight: 500;
@@ -230,8 +247,12 @@
     gap: 16px;
   }
   
-  .company-brand span {
+  .brand-text span {
     display: none;
+  }
+  
+  .company-logo {
+    height: 36px;
   }
   
   .search-container {
@@ -270,8 +291,12 @@
     max-width: none;
   }
   
-  .company-brand h1 {
+  .brand-text h1 {
     font-size: 20px;
+  }
+  
+  .company-logo {
+    height: 32px;
   }
   
   .date-title {

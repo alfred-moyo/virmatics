@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '../assets/logo.png';
 import './CalendarHeader.css';
 
 const CalendarHeader = ({ 
@@ -33,8 +34,10 @@ const CalendarHeader = ({
     <header className="calendar-header">
       <div className="header-left">
         <div className="company-brand">
-          <h1>Virmatics</h1>
-          <span>Fleet Management Calendar</span>
+          <img src={logo} alt="Virmatics Logo" className="company-logo" />
+          <div className="brand-text">
+            <span>Fleet Management Calendar</span>
+          </div>
         </div>
         
         <div className="navigation-controls">
